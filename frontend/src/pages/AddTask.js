@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function AddTask() {
     const [data, setData] = useState('');
@@ -17,29 +17,28 @@ function AddTask() {
             </div>
             <div className="row m-3">
                 <div className="d-flex justify-content-center">
-                    <button className="btn btn-outline-success" onClick={() => { 
-                        let a = addApi(addApi, data);
-                        if(a){
-                            navi('/');
+                    <button className="btn btn-outline-success" onClick={() => {
+                        let obj = {
+                            "mytask": data
                         }
-                     }}>Add Task</button>
+                        
+                        fetch(apiUrl, {
+                            method: "POST",
+                            body: JSON.stringify(obj),
+                            headers: {
+                                "Content-Type": "application/json"
+                            }
+                        })
+                            .then(res=>navi('/'))
+
+                    }}>Add Task</button>
                 </div>
             </div>
         </>
     );
 }
 async function addApi(apiUrl, data) {
-    let obj = {
-        "mytask": data
-    }
-    await fetch(apiUrl, {
-        method: "POST",
-        body: JSON.stringify(obj),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-        .then(res => res.json())
+
     return true;
 }
 export default AddTask;

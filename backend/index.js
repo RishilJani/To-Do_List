@@ -50,7 +50,7 @@ mongoose.connect(connectionString).then(() => {
             res.status(500).json({ error: "Internal server error" });
         }
     }, async (req, res) => {
-        // console.log("req.body", req.body);
+        console.log("req.body", req.body);
         const str = req.body.mytask;
         const current = moment().format("DD/MM/YYYY").toString();
 
