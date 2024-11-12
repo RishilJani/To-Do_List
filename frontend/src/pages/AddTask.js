@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 
 function AddTask() {
     const [data, setData] = useState('');
@@ -17,7 +17,7 @@ function AddTask() {
             </div>
             <div className="row m-3">
                 <div className="d-flex justify-content-center">
-                    <button className="btn btn-outline-success" onClick={() => {
+                    <button className="btn btn-outline-success mx-3" onClick={() => {
                         let obj = {
                             "mytask": data
                         }
@@ -32,6 +32,7 @@ function AddTask() {
                             .then(res=>navi('/'))
 
                     }}>Add Task</button>
+                    <Link className="btn btn-outline-info mx-3" to={"/"}>Back</Link> 
                 </div>
             </div>
         </>

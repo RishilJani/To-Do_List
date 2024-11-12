@@ -6,12 +6,15 @@ function GetAll() {
     const [data, setData] = useState([]);
     var [checked, setChecked] = useState([]);
     const apiUrl = 'http://localhost:4000/tasks';
+    
     const navi = useNavigate();
 
-    // var handleChange = (ind) => {
-    //     setChecked(...checked, checked[ind] = !checked[ind]);
-    // }
-    var changeChecked = (data) => {
+    var changeChecked = (data, index = -1, chk = false) => {
+        if (index != -1) {
+            
+            data[index].isDone = chk;
+            console.log(data[index],chk);
+        }
         for (let i = 0; i < data.length; i++) {
             checked[i] = data[i].isDone;
         }
@@ -23,20 +26,26 @@ function GetAll() {
         fetch(apiUrl)
             .then(res => res.json())
             .then(res => changeChecked(res))
-
-
-        setChecked(checked);
     }, []);
-
-    // to change value of checked state
-
-
 
     var formatted = data.map((t, index) => {
         return (
-            <tr style={{ textDecoration: checked[index] ? 'line-through' : 'none' }} >
+            <tr style={{ textDecoration: t.isDone ? 'line-through' : 'none' }} >
 
-                <td>{t.n_id}</td>
+                <td><input className="form-check-input" type="checkbox"  onChange={(e) => { 
+                    
+                    t.isDone = e.target.checked;
+                    console.log(t);
+                    fetch(apiUrl+"/"+t.n_id,{
+                        method : "PUT",
+                        body : JSON.stringify(t),
+                        headers : {
+                            "Content-Type": "application/json"
+                        }
+                    })
+                    .then(res=> res.json())
+                    .then(res=> setData(res))
+                }} checked={t.isDone} /></td>
 
                 <td>{t.task}</td>
 
@@ -47,7 +56,9 @@ function GetAll() {
 
                     fetch(apiUrl + "/" + t.n_id, {
                         method: "DELETE"
-                    }).then(res => navi("/"));
+                    }).then(res => res.json())
+                    .then(res=> setData(res));
+
                 }}>Delete</button></td>
 
             </tr>
@@ -59,7 +70,7 @@ function GetAll() {
             <div className="container p-5">
                 <table className="table table-borderd">
                     <thead>
-                        <th>Sr No.</th>
+                        <th></th>
                         <th>Task</th>
                         <th>Edit Task</th>
                         <th>Delete Task</th>
@@ -73,14 +84,4 @@ function GetAll() {
     );
 }
 
-
-
-// function deletetask(id){
-//     const apiUrl = 'http://localhost:4000/tasks/'+id;
-//     fetch(apiUrl,{
-//         method:"DELETE"
-//     })
-//     .then(res=>res.json())
-
-// }
 export default GetAll;

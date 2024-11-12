@@ -18,7 +18,7 @@ mongoose.connect(connectionString).then(() => {
 
     // Get All
     app.get("/tasks", async (req, res) => {
-        const ans = await Task.find().sort({ n_id: 1 });
+        const ans = await Task.find().sort({ n_id: -1 });
         res.send(ans);
     });
 
@@ -30,7 +30,6 @@ mongoose.connect(connectionString).then(() => {
 
     // Create
     app.post("/tasks", async (req, res, next) => {
-        // console.log("maxxx");
         try {
             const result = await Task.aggregate([
                 {
@@ -41,7 +40,6 @@ mongoose.connect(connectionString).then(() => {
                 }
             ]);
 
-            console.log("Max n_id:", result[0].maxId);
             id = result[0].maxId + 1;
             next();
 
@@ -50,7 +48,6 @@ mongoose.connect(connectionString).then(() => {
             res.status(500).json({ error: "Internal server error" });
         }
     }, async (req, res) => {
-        console.log("req.body", req.body);
         const str = req.body.mytask;
         const current = moment().format("DD/MM/YYYY").toString();
 
@@ -67,7 +64,7 @@ mongoose.connect(connectionString).then(() => {
     });
 
     // update task
-    // app.put("/tasks/:n_id", async (req, res) => {
+    // app.patch("/tasks/:n_id", async (req, res) => {
     //     const str = req.body.mytask;
 
     //     const t = await Task.findOne({ n_id: req.params.n_id });
@@ -84,15 +81,15 @@ mongoose.connect(connectionString).then(() => {
         t.isDone = req.body.isDone;
         t.task = req.body.task;
         const ans = await t.save();
-        res.send(ans);
+        const myres = await Task.find().sort({n_id:-1});
+        res.send(myres);
     });
 
     // to delete a task 
     app.delete("/tasks/:id", async (req, res) => {
         const ans = await Task.deleteOne({ n_id: req.params.id });
-        console.log("delete ans ", ans);
-
-        res.send(ans);
+        const myres = await Task.find().sort({n_id : -1});
+        res.send(myres);
     });
 
 

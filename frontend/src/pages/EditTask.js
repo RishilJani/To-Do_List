@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 function EditTask() {
     const [task, setTask] = useState({});
@@ -8,10 +8,7 @@ function EditTask() {
     const navi = useNavigate();
 
     const apiUrl = 'http://localhost:4000/tasks/' + params.n_id;
-    // var handleChange = (res)=>{
-    //     // data = res.task;
-    //     setTask(res);
-    // }
+    
     useEffect(() => {
         fetch(apiUrl).then(res => res.json()).then(res => setTask(res))
 
@@ -34,7 +31,7 @@ function EditTask() {
             </div>
             <div className="row m-3">
                 <div className="d-flex justify-content-center">
-                    <button className="btn btn-outline-info mx-2" onClick={() => { navi('/') }}>Back</button>
+                    <Link className="btn btn-outline-info mx-2" to={'/'}>Back</Link>
                     <button className="btn btn-outline-success mx-2" onClick={() => {
                         fetch(apiUrl, {
                             method: "PUT",
