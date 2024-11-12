@@ -47,9 +47,11 @@ function GetAll() {
                     .then(res=> setData(res))
                 }} checked={t.isDone} /></td>
 
-                <td>{t.task}</td>
+                <td className="text-start">{t.task}</td>
 
-                <td><Link className="btn btn-outline-info" to={"/edit/" + t.n_id}> Edit </Link></td>
+                <td>{t.created_date} </td>
+                
+                <td><Link className="btn btn-outline-info" to={"/edit/" + t.n_id}> <i class="bi bi-pencil-square"></i> </Link></td>
 
                 <td><button className="btn btn-outline-danger" onClick={() => {
                     console.log("clicked");
@@ -59,7 +61,7 @@ function GetAll() {
                     }).then(res => res.json())
                     .then(res=> setData(res));
 
-                }}>Delete</button></td>
+                }}><i class="bi bi-trash"></i></button></td>
 
             </tr>
         );
@@ -68,12 +70,15 @@ function GetAll() {
     return (
         <>
             <div className="container p-5">
-                <table className="table table-borderd">
+                <table className="table table-borderd text-center">
                     <thead>
-                        <th></th>
-                        <th>Task</th>
-                        <th>Edit Task</th>
-                        <th>Delete Task</th>
+                        <tr>
+                            <th></th>
+                            <th className="text-start">Task</th>
+                            <th>Date</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
                     </thead>
                     <tbody>
                         {formatted}
