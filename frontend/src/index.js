@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Layout from './pages/Layout';
 import AddTask from './pages/AddTask';
 import GetAll from './pages/GetAll';
+import EditTask from './pages/EditTask';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -13,7 +14,7 @@ root.render(
         <Route path="/" element={ <Layout /> }>
           <Route index element={ <GetAll /> } />
           <Route path='/add' element={<AddTask />} />
-          <Route path='/edit/:n_id' element={<AddTask />} />
+          <Route path='/edit/:n_id' element={<EditTask />} />
         </Route>
       </Routes>
     </BrowserRouter>

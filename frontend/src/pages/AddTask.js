@@ -1,18 +1,10 @@
-import { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
+import {  useNavigate } from "react-router-dom";
 
 function AddTask() {
     const [data, setData] = useState('');
-    var path = useLocation().pathname;
-    const params = useParams();
-
+    const navi = useNavigate();
     const apiUrl = 'http://localhost:4000/tasks';
-    const [task,setTask] = useState({});
-    useEffect(()=>{
-        if(path.includes("edit")){
-            fetch(apiUrl+params.n_id).then(res=>res.json()).then(res=> setTask(res))
-        }
-    },[]);
     return (
         <>
             <div className="row m-3 d-flex justify-content-center">
@@ -23,25 +15,24 @@ function AddTask() {
                     }} placeholder="Write task..." />
                 </div>
             </div>
-            {path.includes("edit") &&
-                <div className="m-3 d-flex justify-content-center">
-                    <label className="col-1 col-form-label fs-5">Is Task Done? </label>
-                    <div className="input-group-text"><input type="checkbox" className="form-control form-control" /></div>
-                </div>}
             <div className="row m-3">
                 <div className="d-flex justify-content-center">
-                    {path.includes("add") && <button className="btn btn-outline-success" onClick={() => { addApi(addApi, data); }}>Add Task</button>}
-                    {path.includes("edit") && <button className="btn btn-outline-success" onClick={() => { editApi(addApi, data); }}>Edit Task</button>}
+                    <button className="btn btn-outline-success" onClick={() => { 
+                        let a = addApi(addApi, data);
+                        if(a){
+                            navi('/');
+                        }
+                     }}>Add Task</button>
                 </div>
             </div>
         </>
     );
 }
-function addApi(apiUrl, data) {
+async function addApi(apiUrl, data) {
     let obj = {
         "mytask": data
     }
-    fetch(apiUrl, {
+    await fetch(apiUrl, {
         method: "POST",
         body: JSON.stringify(obj),
         headers: {
@@ -49,9 +40,6 @@ function addApi(apiUrl, data) {
         }
     })
         .then(res => res.json())
-
-}
-function editApi(apiUrl, data) {
-
+    return true;
 }
 export default AddTask;

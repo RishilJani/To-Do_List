@@ -4,36 +4,36 @@ import { Link } from "react-router-dom";
 
 function GetAll() {
     const [data, setData] = useState([]);
-
+    var [checked, setChecked] = useState([]);
+    const apiUrl = 'http://localhost:4000/tasks';
+    
 
     var handleChange = (ind) => {
         // console.log(checked);
         setChecked(...checked, checked[ind] = !checked[ind]);
     }
-
-    const apiUrl = 'http://localhost:4000/tasks';
+    var changeChecked = (data)=>{
+        for (let i = 0; i < data.length; i++) {
+            checked[i] = data[i].isDone;
+        }
+        setData(data);
+    }   
 
     // to fetch Api and store in data
     useEffect(() => {
         fetch(apiUrl)
             .then(res => res.json())
-            .then(res => setData(res))
+            .then(res => changeChecked(res))
 
+            
+            console.log("checked ",checked);
+            setChecked(checked);
     }, []);
 
-    var [checked, setChecked] = useState([]);
     // to change value of checked state
-    useEffect(() => {
-        console.log("checked useState");
+    
 
-        for (let i = 0; i < data.length; i++) {
-            checked[i] = data[i].isDone;
-        }
-
-        setChecked(checked);
-    }, []);
-
-
+    
     var formatted = data.map((t, index) => {
         return (
             <tr style={{ textDecoration: checked[index] ? 'line-through' : 'none' }} >

@@ -67,21 +67,22 @@ mongoose.connect(connectionString).then(() => {
     });
 
     // update task
-    app.put("/tasks/:n_id", async (req, res) => {
-        const str = req.body.mytask;
+    // app.put("/tasks/:n_id", async (req, res) => {
+    //     const str = req.body.mytask;
 
-        const t = await Task.findOne({ n_id: req.params.n_id });
+    //     const t = await Task.findOne({ n_id: req.params.n_id });
 
-        t.task = str;
-        const ans = await t.save();
-        res.send(ans);
-    });
+    //     t.task = str;
+    //     const ans = await t.save();
+    //     res.send(ans);
+    // });
 
     // when a task is done
-    app.patch("/tasks/:n_id", async (req, res) => {
+    app.put("/tasks/:n_id", async (req, res) => {
         const t = await Task.findOne({ n_id: req.params.n_id });
 
-        t.isDone = true;
+        t.isDone = req.body.isDone;
+        t.task = req.body.task;
         const ans = await t.save();
         res.send(ans);
     });
