@@ -16,9 +16,12 @@ function EditTask() {
 
     return (
         <>
+            {/* link back to home page */}
             <div className="d-flex justify-content-start m-5">
-                <Link className="btn btn-outline-info mx-3" to={"/"}>Back</Link> 
+                <Link className="btn btn-outline-info mx-3" to={"/"}>Back</Link>
             </div>
+
+            {/* input feild to change task */}
             <div className="row m-3 d-flex justify-content-center">
                 <label className="col-2 col-form-label fs-5">Task : </label>
                 <div className="col-4 ">
@@ -26,12 +29,14 @@ function EditTask() {
                 </div>
             </div>
 
+            {/* Displays Created date */}
             <div className="m-3 d-flex justify-content-center">
                 <label className="col-form-label fs-5 m-1">Created date : {task.created_date}</label>
             </div>
+
+            {/* button to send data to backend */}
             <div className="row m-3">
                 <div className="d-flex justify-content-center">
-                    {/* <Link className="btn btn-outline-info mx-2" to={'/'}>Back</Link> */}
                     <button className="btn btn-outline-success mx-2" onClick={() => {
                         fetch(apiUrl, {
                             method: "PUT",

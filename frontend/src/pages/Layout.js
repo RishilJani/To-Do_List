@@ -11,7 +11,6 @@ function Layout() {
 
                     </div>
                     <div className='col-2 d-flex  justify-content-center py-3'>
-                        {/* <input class="form-control" type="search" placeholder="Search" /> */}
                         <Link to={"/search"} className='btn btn-outline-primary'>Search</Link>
                     </div>
                 </div>

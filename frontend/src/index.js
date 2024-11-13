@@ -15,9 +15,9 @@ root.render(
         <Route path="/" element={<Layout />}>
           <Route index element={<GetAll />} />
         </Route>
-          <Route path='/add' element={<AddTask />} />
-          <Route path='/edit/:n_id' element={<EditTask />} />
-          <Route path='/search' element={<Search />} />
+        <Route path='/add' element={<AddTask />} />
+        <Route path='/edit/:n_id' element={<EditTask />} />
+        <Route path='/search' element={<Search />} />
       </Routes>
     </BrowserRouter>
   </>

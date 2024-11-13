@@ -16,8 +16,9 @@ function Search() {
     return (
         <>
             <div className="container">
+                {/* link back to home page */}
                 <div className="d-flex justify-content-start m-4">
-                    <Link className="btn btn-outline-info mx-3" to={"/"}>Back</Link> {/* link back to home page */}
+                    <Link className="btn btn-outline-info mx-3" to={"/"}>Back</Link> 
                 </div>
 
                 <div className="row m-4 px-2 justify-content-center">
