@@ -79,6 +79,7 @@ mongoose.connect(connectionString).then(() => {
     app.delete("/tasks/:id", async (req, res) => {
         const ans = await Task.deleteOne({ n_id: req.params.id });
         const myres = await Task.find().sort({n_id : -1});
+        console.log("deleted")
         res.send(myres);
     });
 
