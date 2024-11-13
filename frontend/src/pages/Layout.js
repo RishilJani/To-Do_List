@@ -5,13 +5,14 @@ function Layout() {
         <>
             <div className="container p-3">
                 <div className='row px-2 justify-content-center'>
-                    <div className='col-2 border border-danger'>
+                    <div className='col-2'>
                         <label className='form-lable'>Add Note : </label>
                         <Link className='btn btn-outline-warning m-3 ' to={'/add'}> + </Link>
 
                     </div>
-                    <div className='col-3 d-flex border border-info justify-content-end py-3'>
-                        <input class="form-control" type="search" placeholder="Search" />
+                    <div className='col-2 d-flex  justify-content-center py-3'>
+                        {/* <input class="form-control" type="search" placeholder="Search" /> */}
+                        <Link to={"/search"} className='btn btn-outline-primary'>Search</Link>
                     </div>
                 </div>
 

@@ -63,16 +63,6 @@ mongoose.connect(connectionString).then(() => {
         res.send(ans);
     });
 
-    // update task
-    // app.patch("/tasks/:n_id", async (req, res) => {
-    //     const str = req.body.mytask;
-
-    //     const t = await Task.findOne({ n_id: req.params.n_id });
-
-    //     t.task = str;
-    //     const ans = await t.save();
-    //     res.send(ans);
-    // });
 
     // when a task is done
     app.put("/tasks/:n_id", async (req, res) => {
@@ -92,6 +82,13 @@ mongoose.connect(connectionString).then(() => {
         res.send(myres);
     });
 
+    // search api
+    app.get("/tasks/search/:txt",async (req,res)=>{
+        const ans = await Task.find({
+            task : { $regex : req.params.txt}
+        }).sort( {n_id : -1});
+        res.send(ans);
+    });
 
     app.listen(port, () => {
         console.log("server started at " + port);

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function AddTask() {
     const [data, setData] = useState('');
@@ -7,6 +7,9 @@ function AddTask() {
     const apiUrl = 'http://localhost:4000/tasks';
     return (
         <>
+            <div className="m-5 d-flex justify-content-start">
+                <Link className="btn btn-outline-info mx-3" to={"/"}>Back</Link>
+            </div>
             <div className="row m-3 d-flex justify-content-center">
                 <label className="col-2 col-form-label fs-5">Task : </label>
                 <div className="col-4 ">
@@ -15,13 +18,13 @@ function AddTask() {
                     }} placeholder="Write task..." />
                 </div>
             </div>
-            <div className="row m-3">
+            <div className="row m-5">
                 <div className="d-flex justify-content-center">
                     <button className="btn btn-outline-success mx-3" onClick={() => {
                         let obj = {
                             "mytask": data
                         }
-                        
+
                         fetch(apiUrl, {
                             method: "POST",
                             body: JSON.stringify(obj),
@@ -29,10 +32,9 @@ function AddTask() {
                                 "Content-Type": "application/json"
                             }
                         })
-                            .then(res=>navi('/'))
+                            .then(res => navi('/'))
 
                     }}>Add Task</button>
-                    <Link className="btn btn-outline-info mx-3" to={"/"}>Back</Link> 
                 </div>
             </div>
         </>
