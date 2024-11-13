@@ -13,7 +13,6 @@ function GetAll() {
         if (index != -1) {
             
             data[index].isDone = chk;
-            console.log(data[index],chk);
         }
         for (let i = 0; i < data.length; i++) {
             checked[i] = data[i].isDone;
@@ -28,44 +27,7 @@ function GetAll() {
             .then(res => changeChecked(res))
     }, []);
 
-    var formatted = data.map((t, index) => {
-        return (
-            <tr style={{ textDecoration: t.isDone ? 'line-through' : 'none' }} >
-
-                <td><input className="form-check-input" type="checkbox"  onChange={(e) => { 
-                    
-                    t.isDone = e.target.checked;
-                    console.log(t);
-                    fetch(apiUrl+"/"+t.n_id,{
-                        method : "PUT",
-                        body : JSON.stringify(t),
-                        headers : {
-                            "Content-Type": "application/json"
-                        }
-                    })
-                    .then(res=> res.json())
-                    .then(res=> setData(res))
-                }} checked={t.isDone} /></td>
-
-                <td className="text-start">{t.task}</td>
-
-                <td>{t.created_date} </td>
-                
-                <td><Link className="btn btn-outline-info" to={"/edit/" + t.n_id}> <i class="bi bi-pencil-square"></i> </Link></td>
-
-                <td><button className="btn btn-outline-danger" onClick={() => {
-                    console.log("clicked");
-
-                    fetch(apiUrl + "/" + t.n_id, {
-                        method: "DELETE"
-                    }).then(res => res.json())
-                    .then(res=> setData(res));
-
-                }}><i class="bi bi-trash"></i></button></td>
-
-            </tr>
-        );
-    });
+    var formatted = formateData(data,apiUrl,setData);
 
     return (
         <>
@@ -89,4 +51,47 @@ function GetAll() {
     );
 }
 
+function formateData(data,apiUrl,setData){
+    
+    var format = data.map((t, index) => {
+        return (
+            <tr style={{ textDecoration: t.isDone ? 'line-through' : 'none' }} >
+
+                <td><input className="form-check-input" type="checkbox"  onChange={(e) => { 
+                    
+                    t.isDone = e.target.checked;
+                    fetch(apiUrl+"/"+t.n_id,{
+                        method : "PUT",
+                        body : JSON.stringify(t),
+                        headers : {
+                            "Content-Type": "application/json"
+                        }
+                    })
+                    .then(res=> res.json())
+                    .then(res=> setData(res))
+                }} checked={t.isDone} /></td>
+
+                <td className="text-start">{t.task}</td>
+
+                <td>{t.created_date} </td>
+                
+                <td><Link className="btn btn-outline-info" to={"/edit/" + t.n_id}> <i class="bi bi-pencil-square"></i> </Link></td>
+
+                <td><button className="btn btn-outline-danger" onClick={() => {
+
+                    fetch(apiUrl + "/" + t.n_id, {
+                        method: "DELETE"
+                    }).then(res => res.json())
+                    .then(res=> setData(res));
+
+                }}><i class="bi bi-trash"></i></button></td>
+
+            </tr>
+        );
+    });
+
+    return format;
+}
+
 export default GetAll;
+export {formateData};
