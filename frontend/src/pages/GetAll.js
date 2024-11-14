@@ -4,34 +4,33 @@ import { Link } from "react-router-dom";
 
 function GetAll() {
     const [data, setData] = useState([]); // for data that comes from database
-    var [checked, setChecked] = useState([]); // for data of already done tasks
     const apiUrl = 'http://localhost:4000/tasks';
 
     // to fetch Api and store in data
     useEffect(() => {
         fetch(apiUrl)
             .then(res => res.json())
-            .then(res => changeChecked(res))
+            .then(res => setData(res))
     }, []);
 
-    // function to change value of data 
-    // use when task is done
-    var changeChecked = (data, index = -1, chk = false) => {
-        if (index != -1) {
-            data[index].isDone = chk;
-        }
-        for (let i = 0; i < data.length; i++) {
-            checked[i] = data[i].isDone;
-        }
-        setData(data);
-    }
-
     var formatted = formateData(data, apiUrl, setData); // data maps in row-column format
-
+    var a = Boolean(localStorage.getItem("myTheme"));
+    console.log("hello");
+    
     return (
         <>
             <div className="container p-5">
-                <table className="table table-borderd text-center">
+                <div className='row px-2 justify-content-center'>
+                    <div className='col-2'>
+                        <label className='form-lable'>Add Note : </label>
+                        <Link className='btn btn-outline-warning m-3 ' to={'/add'}> + </Link>
+
+                    </div>
+                    <div className='col-2 d-flex  justify-content-center py-3'>
+                        <Link to={"/search"} className='btn btn-outline-primary'>Search</Link>
+                    </div>
+                </div>
+                <table className={`table ${a ? "" : "table-dark"} table-borderd table-hover text-center `} id="myTable">
                     <thead>
                         <tr>
                             <th></th>
@@ -57,7 +56,7 @@ function formateData(data, apiUrl, setData) {
     var format = data.map((t, index) => {
         return (
             <tr key={t.n_id} style={{ textDecoration: t.isDone ? 'line-through' : 'none' }} >
-                
+
                 {/* Checkbox*/}
                 <td>
                     <input className="form-check-input" type="checkbox" onChange={(e) => {
@@ -87,7 +86,7 @@ function formateData(data, apiUrl, setData) {
                 {/* Delete button */}
                 <td><button className="btn btn-outline-danger" onClick={() => {
                     console.log(apiUrl + "/" + t.n_id);
-                    
+
                     fetch(apiUrl + "/" + t.n_id, {
                         method: "DELETE"
                     }).then(res => res.json())
@@ -102,5 +101,8 @@ function formateData(data, apiUrl, setData) {
     return format;
 }
 
+function changeTable(e) {
+
+}
 export default GetAll;
 export { formateData };

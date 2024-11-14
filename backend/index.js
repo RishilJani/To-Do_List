@@ -18,7 +18,7 @@ mongoose.connect(connectionString).then(() => {
 
     // Get All
     app.get("/tasks", async (req, res) => {
-        const ans = await Task.find().sort({ n_id: -1 });
+        const ans = await Task.find().sort({ isDone : 1 });
         res.send(ans);
     });
 
@@ -71,7 +71,7 @@ mongoose.connect(connectionString).then(() => {
         t.isDone = req.body.isDone;
         t.task = req.body.task;
         const ans = await t.save();
-        const myres = await Task.find().sort({n_id:-1});
+        const myres = await Task.find().sort({ isDone : 1});
         res.send(myres);
     });
 
