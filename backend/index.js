@@ -4,9 +4,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const moment = require('moment');
 
-// require('dotenv').config();
-
-const connectionString = "mongodb+srv://Rishil:RVJani@cluster0.7mv6j.mongodb.net/To-Do_list";
+require('dotenv').config();
+const connectionString = "mongodb+srv://"+process.env.User+":"+process.env.Pass+"@cluster0.7mv6j.mongodb.net/To-Do_list";
 const port = 4000;
 var id = 1;
 mongoose.connect(connectionString).then(() => {
@@ -57,7 +56,6 @@ mongoose.connect(connectionString).then(() => {
             created_date: current,
             isDone: false
         });
-        id++;
         const ans = await curr.save();
 
         res.send(ans);
