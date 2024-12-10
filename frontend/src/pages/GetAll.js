@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 
 function GetAll() {
     const [data, setData] = useState([]); // for data that comes from database
     const apiUrl = 'http://localhost:4000/tasks';
+
+    const loc = useLocation();
+    const isDark = loc.state; // to get current state 
 
     // to fetch Api and store in data
     useEffect(() => {
@@ -14,9 +17,7 @@ function GetAll() {
     }, []);
 
     var formatted = formateData(data, apiUrl, setData); // data maps in row-column format
-    var a = Boolean(localStorage.getItem("myTheme"));
-    console.log("hello");
-    
+
     return (
         <>
             <div className="container p-5">
@@ -30,7 +31,7 @@ function GetAll() {
                         <Link to={"/search"} className='btn btn-outline-primary'>Search</Link>
                     </div>
                 </div>
-                <table className={`table ${a ? "" : "table-dark"} table-borderd table-hover text-center `} id="myTable">
+                <table className={`table ${isDark ? " table-dark " : ""} table-borderd table-hover text-center `} id="myTable">
                     <thead>
                         <tr>
                             <th></th>
