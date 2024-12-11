@@ -7,7 +7,11 @@ function GetAll() {
     const apiUrl = 'http://localhost:4000/tasks';
 
     const loc = useLocation();
-    const isDark = loc.state; // to get current state 
+    let a = loc.state;
+    let b = Boolean(localStorage.getItem('myTheme'));
+    localStorage.removeItem('myTheme');
+
+    const isDark = (a != null) ? a : b; // to get current state 
 
     // to fetch Api and store in data
     useEffect(() => {
@@ -17,7 +21,7 @@ function GetAll() {
     }, []);
 
     var formatted = formateData(data, apiUrl, setData); // data maps in row-column format
-
+    changeTable();
     return (
         <>
             <div className="container p-5">
@@ -31,7 +35,7 @@ function GetAll() {
                         <Link to={"/search"} className='btn btn-outline-primary'>Search</Link>
                     </div>
                 </div>
-                <table className={`table ${isDark ? " table-dark " : ""} table-borderd table-hover text-center `} id="myTable">
+                <table className={`table table-borderd table-hover text-center `} id="myTable">
                     <thead>
                         <tr>
                             <th></th>
@@ -102,7 +106,17 @@ function formateData(data, apiUrl, setData) {
     return format;
 }
 
-function changeTable(e) {
+function changeTable() {
+    var mt = document.getElementById('myTable');
+    var tBtn = document.getElementById('myTheme');
+
+    if (tBtn != null && mt != null) {
+        if (tBtn.checked) {
+            mt.className += ' table-dark ';
+        } else {
+            mt.className = mt.className.replace('table-dark', " ");
+        }
+    }
 
 }
 export default GetAll;

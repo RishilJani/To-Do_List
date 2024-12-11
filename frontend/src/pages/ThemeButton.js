@@ -14,7 +14,7 @@ function ThemeButton(props) {
     return (
         <>
             <input className="form-check-input m-2 fs-6" type="checkbox" id={"myTheme"} checked={isDark} onChange={(e) => { changeTheme(!isDark, setDark); }} />
-            <label className="form-check-label me-5 my-0 fs-6" >{isDark ? <i class="bi bi-moon-stars-fill fs-5"></i> : <i class="bi bi-brightness-high-fill fs-5"></i>}</label>
+            <label className="form-check-label me-5 my-0 fs-6" >{isDark ? <i className="bi bi-moon-stars-fill fs-5"></i> : <i className="bi bi-brightness-high-fill fs-5"></i>}</label>
 
         </>
     );
@@ -28,7 +28,11 @@ function changeTheme(isDark, setDark) {
         body.style.backgroundColor = "white"
         body.style.color = "black";
     }
-    // localStorage.setItem("myTheme", isDark);
+    localStorage.setItem("myTheme", isDark);
+    
+    // console.log("btn isDark = ",isDark);
+    // console.log("btn = ",localStorage.getItem('myTheme'));
+    
     setDark(isDark);
 
 }

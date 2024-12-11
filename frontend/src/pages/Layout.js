@@ -4,6 +4,7 @@ import ThemeButton from './ThemeButton';
 
 function Layout() {
     const [isDark, setDark] = useState(false); // state for dark mode
+    // localStorage.removeItem('myTheme');
     return (
         <>
             <div className="container p-2">
