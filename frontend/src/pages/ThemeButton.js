@@ -29,10 +29,7 @@ function changeTheme(isDark, setDark) {
         body.style.color = "black";
     }
     localStorage.setItem("myTheme", isDark);
-    
-    // console.log("btn isDark = ",isDark);
-    // console.log("btn = ",localStorage.getItem('myTheme'));
-    
+
     setDark(isDark);
 
 }

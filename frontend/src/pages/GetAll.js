@@ -7,11 +7,7 @@ function GetAll() {
     const apiUrl = 'http://localhost:4000/tasks';
 
     const loc = useLocation();
-    let a = loc.state;
-    let b = Boolean(localStorage.getItem('myTheme'));
     localStorage.removeItem('myTheme');
-
-    const isDark = (a != null) ? a : b; // to get current state 
 
     // to fetch Api and store in data
     useEffect(() => {
