@@ -10,11 +10,11 @@ function ThemeButton(props) {
     useEffect(() => {
         navi(loc.pathname, { state: isDark }); // setting state at current location
     }, [isDark]);
+
     return (
         <>
-            <input className="form-check-input mx-2" type="checkbox" id={"myTheme"} checked={isDark} onChange={(e) => { changeTheme(!isDark, setDark); }} />
-            <label className="form-check-label me-5" >{isDark ? "Light" : "Dark"} Mode</label>
-
+            <input className="form-check-input m-2 fs-6" type="checkbox" id={"myTheme"} checked={isDark} onChange={(e) => { changeTheme(!isDark, setDark); }} />
+            <label className="form-check-label me-5 my-0 fs-6" >{isDark ? <i class="bi bi-moon-stars-fill fs-5"></i> : <i class="bi bi-brightness-high-fill fs-5"></i>}</label>
 
         </>
     );
@@ -28,7 +28,7 @@ function changeTheme(isDark, setDark) {
         body.style.backgroundColor = "white"
         body.style.color = "black";
     }
-    localStorage.setItem("myTheme", isDark);
+    // localStorage.setItem("myTheme", isDark);
     setDark(isDark);
 
 }
