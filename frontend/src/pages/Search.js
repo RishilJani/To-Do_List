@@ -11,7 +11,7 @@ function Search() {
     var formatted = [];
 
     // when data is available
-    if (data.length != 0) { formatted = formateData(data, apiUrl, setData); }
+    if (data.length !== 0) { formatted = formateData(data, apiUrl, setData); }
 
     return (
         <>
@@ -38,10 +38,10 @@ function Search() {
                 {/* display output */}
                 <div>
                     {/* when data is not available  */}
-                    {(!isFirst && formatted.length == 0) && <h2> No result Found</h2>}
+                    {(!isFirst && formatted.length === 0) && <h2> No result Found</h2>}
 
                     {/* when data is available  */}
-                    {formatted.length != 0 && <table className="table table-borderd text-center">
+                    {formatted.length !== 0 && <table className="table table-borderd text-center">
                         <thead>
                             <tr>
                                 <th></th>

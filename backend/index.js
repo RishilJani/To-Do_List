@@ -17,7 +17,7 @@ mongoose.connect(connectionString).then(() => {
 
     // Get All
     app.get("/tasks", async (req, res) => {
-        const ans = await Task.find().sort({ isDone : 1 });
+        const ans = await Task.find().sort({ isDone : 1 , created_date : 1});
         res.send(ans);
     });
 
@@ -48,8 +48,8 @@ mongoose.connect(connectionString).then(() => {
         }
     }, async (req, res) => {
         const str = req.body.mytask;
-        const current = moment().format("DD/MM/YYYY").toString();
-
+        const current = moment().format("YYYY/MM/DD").toString();
+        
         const curr = new Task({
             n_id: id,
             task: str,
